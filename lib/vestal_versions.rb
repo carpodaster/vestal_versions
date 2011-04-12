@@ -1,3 +1,5 @@
+require 'active_record'
+
 # +vestal_versions+ keeps track of updates to ActiveRecord models, leveraging the introduction of
 # dirty attributes in Rails 2.1. By storing only the updated attributes in a serialized column of a
 # single version model, the history is kept DRY and no additional schema changes are necessary.
@@ -96,4 +98,5 @@ module VestalVersions
   extend Configuration
 end
 
-ActiveRecord::Base.send(:include, VestalVersions)
+ActiveRecord::Base.class_eval { include VestalVersions }
+
